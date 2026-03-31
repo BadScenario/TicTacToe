@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brown"
+    tools:context=".GameActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/gameToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:fitsSystemWindows="true"
+        app:subtitleTextColor="@color/white"
+        app:titleTextColor="@color/white" />
+
+    <TextView
+        android:id="@+id/scoreTV"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="46dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="@string/score"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameToolbar" />
+
+    <LinearLayout
+        android:id="@+id/playerOneDataLL"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreTV">
+
+        <TextView
+            android:id="@+id/playerOneNameTV"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="@string/player_1_name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameToolbar" />
+
+        <TextView
+            android:id="@+id/playerOneSymTV"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/x"
+            android:textColor="@color/pink"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameToolbar" />
+
+        <TextView
+            android:id="@+id/playerOneScoreTV"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameToolbar" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/playerTwoDataLL"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerOneDataLL">
+
+        <TextView
+            android:id="@+id/playerTwoNameTV"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="@string/player_2_name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameToolbar" />
+
+        <TextView
+            android:id="@+id/playerTwoSymTV"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/o"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameToolbar" />
+
+        <TextView
+            android:id="@+id/playerTwoScoreTV"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameToolbar" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/turnTV"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerTwoDataLL" />
+
+    <GridLayout
+        android:id="@+id/gameBoardGV"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="100dp"
+        android:columnCount="3"
+        android:rowCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerTwoDataLL">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/zero_zero"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="0"
+            android:textSize="40sp"
+            android:layout_column="0"
+            android:enabled="false"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/zero_one"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="0"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:enabled="false"
+            android:layout_column="1"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/zero_two"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:textSize="40sp"
+            android:enabled="false"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/one_zero"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:enabled="false"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:textSize="40sp"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/one_one"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:textSize="40sp"
+            android:enabled="false"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/one_two"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:textSize="40sp"
+            android:enabled="false"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/two_zero"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:textSize="40sp"
+            android:enabled="false"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/two_one"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:textSize="40sp"
+            android:enabled="false"
+            android:background="@drawable/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/two_two"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:textSize="40sp"
+            android:enabled="false"
+            android:background="@drawable/border" />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/gameStartBTN"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/game_start"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/gameBoardGV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/resetStatsBTN"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_stats"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/gameStartBTN"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
