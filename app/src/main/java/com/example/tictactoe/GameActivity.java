@@ -57,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
         binding.gameStartBTN.setOnClickListener(v -> {
+            boardErase();
             GameBoard.fillBoard(GameBoard.gameBoard);
             boardEnable();
             showPlayerTurn();
@@ -100,6 +101,16 @@ public class GameActivity extends AppCompatActivity {
         if (row == 2 && column == 1) return binding.twoOne;
         if (row == 2 && column == 2) return binding.twoTwo;
         return null;
+    }
+
+    private void showWinStroke(char player) {
+        for (int i = 0; i < GameBoard.winBoard.length; i++) {
+            for (int j = 0; j < GameBoard.winBoard.length; j++) {
+                if (GameBoard.winBoard[i][j] == player) {
+                    compButton(i, j).setTextColor(ContextCompat.getColor(this, R.color.gold));
+                }
+            }
+        }
     }
 
     private void turnPlayers() {
@@ -167,43 +178,76 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
+
     private void computerTurn() {
         if (GameBoard.checkEmpty()) {
             return;
         }
-        do {
-            row = new Random().nextInt(3);
-            column = new Random().nextInt(3);
-        } while (!GameBoard.checkEmptySlot(row, column));
         new Handler().postDelayed(() -> {
-            operation(row, column, playerTwo, compButton(row, column));
+            if (GameBoard.checkCenter(playerOne, playerTwo)) {
+                operation(1, 1, playerTwo, compButton(1, 1));
+            } else {
+                compLogic(playerOne, playerTwo);
+            }
             turn = true;
             showPlayerTurn();
             checkWinner();
         }, 500);
     }
 
+    private void compLogic(char playerOne, char playerTwo) {
+        for (int i = 0; i < GameBoard.gameBoard.length; i++) {
+            for (int j = 0; j < GameBoard.gameBoard.length; j++) {
+                if (GameBoard.gameBoard[i][j] == '-') {
+                    GameBoard.gameBoard[i][j] = playerTwo;
+                    if (GameBoard.checkWin(playerTwo)) {
+                        operation(i, j, playerTwo, compButton(i, j));
+                        return;
+                    } else {
+                        GameBoard.gameBoard[i][j] = '-';
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < GameBoard.gameBoard.length; i++) {
+            for (int j = 0; j < GameBoard.gameBoard.length; j++) {
+                if (GameBoard.gameBoard[i][j] == '-') {
+                    GameBoard.gameBoard[i][j] = playerOne;
+                    if (GameBoard.checkWin(playerOne)) {
+                        operation(i, j, playerTwo, compButton(i, j));
+                        return;
+                    } else {
+                        GameBoard.gameBoard[i][j] = '-';
+                    }
+                }
+            }
+        }
+        do {
+            row = new Random().nextInt(3);
+            column = new Random().nextInt(3);
+        } while (!GameBoard.checkEmptySlot(row, column));
+        operation(row, column, playerTwo, compButton(row, column));
+    }
     private void checkWinner() {
         if (GameBoard.checkWin(playerOne)) {
             binding.turnTV.setText(binding.playerOneNameTV.getText().toString() + " WIN");
             countOneWin++;
             binding.playerOneScoreTV.setText(String.valueOf(countOneWin));
+            showWinStroke(playerOne);
             setEnabledButtons();
-            boardErase();
             return;
         }
         if (GameBoard.checkWin(playerTwo)) {
             binding.turnTV.setText(binding.playerTwoNameTV.getText().toString() + " WIN");
             countTwoWin++;
             binding.playerTwoScoreTV.setText(String.valueOf(countTwoWin));
+            showWinStroke(playerTwo);
             setEnabledButtons();
-            boardErase();
             return;
         }
         if (GameBoard.checkEmpty()) {
             binding.turnTV.setText("DRAW");
             setEnabledButtons();
-            boardErase();
         }
     }
 
@@ -221,6 +265,7 @@ public class GameActivity extends AppCompatActivity {
                 GameBoard.checkWin(playerTwo) ||
                 GameBoard.checkEmpty();
     }
+
     @SuppressLint("SetTextI18n")
     private void showPlayerTurn() {
         if (turn) {
